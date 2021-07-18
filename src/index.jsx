@@ -1,12 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 
 import { App } from './App'
 import reportWebVitals from './reportWebVitals'
 
+const client = new ApolloClient({
+  uri: 'https://api.thegraph.com/subgraphs/name/superfluid-finance/superfluid-rinkeby',
+  cache: new InMemoryCache(),
+})
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )
