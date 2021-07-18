@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react'
+import SuperfluidSDK from '@superfluid-finance/js-sdk'
+import { Web3Provider } from '@ethersproject/providers'
 
-function App() {
+export function App() {
+  const [me, setMe] = useState(null)
+
+  const isConnected = window.ethereum.isConnected()
+
+  async function handleAccountsChanged() {}
+
+  async function connect() {
+    try {
+      const sf = new SuperfluidSDK.Framework({
+        ethers: new Web3Provider(window.ethereum),
+      })
+
+      await sf.initialize()
+
+      const walletAddress = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+        // params: [{ eth_accounts: {} }],
+      })
+      console.log('walletAddress', walletAddress)
+      setMe(
+        sf.user({
+          address: walletAddress[0],
+          // Rinkeby fDAIx address https://docs.superfluid.finance/superfluid/networks/networks
+          token: '0x745861AeD1EEe363b4AaA5F1994Be40b1e05Ff90',
+        }),
+      )
+    } catch (error) {
+      if (error.code === 4001) {
+        // EIP-1193 userRejectedRequest error
+        console.log('Please connect to MetaMask.')
+      } else {
+        console.error(error)
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (me) {
+      ;(async () => {
+        const details = await me.details()
+        console.log('details', details)
+      })()
+    }
+  }, [me])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      Superfluid task
+      {!me ? <button onClick={connect}>Connect</button> : null}
     </div>
-  );
+  )
 }
-
-export default App;
