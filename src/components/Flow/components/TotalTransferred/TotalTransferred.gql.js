@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const GET_FLOW_QUERY = gql`
   query ($id: ID!) {
-    flowUpdateds(where: { flow_contains: $id }) {
+    flowUpdated(id: $id) {
       id
       flowRate
       transaction {
@@ -10,16 +10,7 @@ export const GET_FLOW_QUERY = gql`
         timestamp
       }
       flow {
-        owner {
-          id
-          accountWithToken {
-            id
-            balance
-          }
-        }
-        recipient {
-          id
-        }
+        id
         token {
           id
           symbol

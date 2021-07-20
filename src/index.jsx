@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { ThemeProvider } from 'styled-components'
 
 import { App } from './App'
+import { Background } from './components'
 import reportWebVitals from './reportWebVitals'
 
 const client = new ApolloClient({
@@ -10,10 +12,17 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
+const theme = {
+  palette: { white: 'hsl(40, 100%, 95%)' },
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <Background />
+        <App />
+      </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root'),
