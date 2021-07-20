@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { useLazyQuery, gql } from '@apollo/client'
 import SuperfluidSDK from '@superfluid-finance/js-sdk'
 import { Web3Provider } from '@ethersproject/providers'
-import styled, { createGlobalStyle, css, keyframes } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { transparentize } from 'polished'
+import Icon from '@mdi/react'
+import { mdiAccountEdit } from '@mdi/js'
 
-import { Background, Flow } from './components'
+import { Anchor, Flow } from './components'
 
 const GlobalStyle = createGlobalStyle(
   ({
@@ -29,34 +31,61 @@ const Row = styled.div({
   width: '100%',
 })
 
-const Avatar = styled.img({
-  border: `4px solid ${transparentize(0.1, 'white')}`,
-  borderRadius: '100px',
-  height: '200px',
-  width: '200px',
+const Heading = styled.h3({
+  color: 'white',
+  display: 'flex',
+  fontSize: '0.9rem',
+  fontWeight: 600,
+  letterSpacing: 1.2,
+  lineHeight: 1,
+  margin: '0 0 0.5rem',
+  padding: '0.5rem calc(0.5rem + 2px)',
+  position: 'relative',
+  textTransform: 'uppercase',
+  ':before': {
+    borderLeft: '3px solid white',
+    borderTop: '3px solid white',
+    content: '""',
+    height: '0.75rem',
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    width: '0.75rem',
+  },
 })
 
-const MyWalletAddress = styled.span({
-  color: transparentize(0.1, 'white'),
-  fontWeight: 600,
+const Avatar = styled.div({
+  alignItems: 'center',
+  border: '4px solid white',
+  borderRadius: '100px',
+  color: 'white',
+  cursor: 'pointer',
+  display: 'flex',
+  height: '200px',
+  justifyContent: 'center',
+  width: '200px',
+  ':hover': {
+    background: 'white',
+    color: 'black',
+  },
 })
 
 const Button = styled.button(() => ({
   appearance: 'none',
   // background: transparentize(0.2, 'white'),
   background: 'none',
-  border: `4px solid ${transparentize(0.2, 'white')}`,
+  border: '4px solid white',
   borderRadius: '1000px',
-  color: transparentize(0.2, 'white'),
+  color: 'white',
   cursor: 'pointer',
-  fontSize: '1.4rem',
+  fontSize: '1.3rem',
   fontWeight: 600,
   outline: 'none',
-  padding: '1rem',
+  padding: '1rem 2rem',
   transitionDuration: '100ms',
   ':hover': {
-    borderColor: transparentize(0.1, 'white'),
-    color: transparentize(0.1, 'white'),
+    background: 'white',
+    color: 'black',
   },
 }))
 
@@ -126,7 +155,7 @@ export function App() {
           flexDirection: 'column',
           height: '100vh',
           justifyContent: 'center',
-          width: '100vw',
+          width: '100%',
         }}
       >
         <div
@@ -134,21 +163,28 @@ export function App() {
             alignItems: 'center',
             display: 'flex',
             flexDirection: 'column',
-            maxWidth: '640px',
+            maxWidth: '480px',
+            overflow: 'hidden',
+            padding: '1rem',
+            width: '100%',
           }}
         >
-          <Avatar src="https://source.unsplash.com/500x500/?portrait" />
-
           {address ? (
             <>
+              <Avatar src="https://source.unsplash.com/500x500/?portrait">
+                <Icon color="currentColor" path={mdiAccountEdit} size="80px" />
+              </Avatar>
               <Row>
-                <MyWalletAddress>{address}</MyWalletAddress>
+                <Heading>Wallet Address</Heading>
+                <Anchor
+                  href={`https://rinkeby.etherscan.io/address/${address}`}
+                >
+                  {address}
+                </Anchor>
               </Row>
 
               <Row>
-                <h2 style={{ color: 'white', margin: 0, padding: 0 }}>Flows</h2>
-              </Row>
-              <Row>
+                <Heading>Flows</Heading>
                 {flowsOwned.map(({ id }) => (
                   <Flow id={id} />
                 ))}

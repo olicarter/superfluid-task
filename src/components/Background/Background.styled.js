@@ -18,9 +18,9 @@ const randomHue = randomInteger(0, 360)
 
 export const Background = styled.div(
   () => ({
-    background: `linear-gradient(150deg, hsl(${randomHue}, 100%, 5%), hsl(${
-      randomHue + 30
-    }, 20%, 50%))`,
+    background: `linear-gradient(150deg, hsl(${randomHue}, 80%, 25%), hsl(${
+      randomHue + 90
+    }, 60%, 60%))`,
     bottom: 0,
     left: 0,
     position: 'absolute',

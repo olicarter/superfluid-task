@@ -6,6 +6,8 @@
     "@apollo/client": "^3.3.21",
     "@ethersproject/contracts": "^5.4.0",
     "@ethersproject/providers": "^5.4.1",
+    "@mdi/js": "^5.9.55",
+    "@mdi/react": "^1.5.0",
     "@superfluid-finance/js-sdk": "^0.4.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

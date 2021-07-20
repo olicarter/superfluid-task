@@ -1,17 +1,12 @@
 import { useQuery } from '@apollo/client'
-import styled from 'styled-components'
-import { transparentize } from 'polished'
+import Icon from '@mdi/react'
+import { mdiWalletOutline, mdiClockStart, mdiClockOut } from '@mdi/js'
 
+import { Anchor } from '../Anchor'
 import { TotalTransferred } from './components'
 
 import { GET_FLOW_QUERY } from './Flow.gql'
-
-const Avatar = styled.img({
-  border: `4px solid ${transparentize(0.1, 'white')}`,
-  borderRadius: '30px',
-  height: '60px',
-  width: '60px',
-})
+import * as Styled from './Flow.styled'
 
 export function Flow({ id }) {
   const {
@@ -19,7 +14,7 @@ export function Flow({ id }) {
       flowUpdateds: [
         {
           id: flowUpdatedId,
-          flow: { recipient = {}, token = {} } = {},
+          flow: { recipient = {}, token: { symbol = '' } = {} } = {},
           flowRate = 0,
         } = {},
       ] = [],
@@ -29,31 +24,57 @@ export function Flow({ id }) {
   })
 
   return (
-    <>
+    <Styled.Flow>
+      <Styled.Avatar src="https://source.unsplash.com/500x500/?avatar" />
       <div
         style={{
-          color: 'white',
           display: 'flex',
-          fontWeight: 600,
-          justifyContent: 'space-between',
-          width: '100%',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+          marginLeft: '1rem',
         }}
       >
-        <Avatar src="https://source.unsplash.com/500x500/?avatar" />
         <div
           style={{
+            alignItems: 'center',
             display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            marginLeft: '1rem',
+            padding: '0 0 0.5rem',
           }}
         >
-          <div>
-            {flowRate / Math.pow(10, 18)} {token.symbol}/s
+          <div style={{ display: 'flex', padding: '0 0.5rem' }}>
+            <Icon color="white" path={mdiWalletOutline} size="20px" />
+          </div>
+          <Anchor href={`https://rinkeby.etherscan.io/address/${recipient.id}`}>
+            {recipient.id}
+          </Anchor>
+        </div>
+
+        <div
+          style={{
+            alignItems: 'center',
+            display: 'flex',
+            padding: '0 0 0.5rem',
+          }}
+        >
+          <div style={{ display: 'flex', padding: '0 0.5rem' }}>
+            <Icon color="white" path={mdiClockOut} size="20px" />
+          </div>
+          {(flowRate / Math.pow(10, 18)).toFixed(8)} {symbol}/s
+        </div>
+
+        <div
+          style={{
+            alignItems: 'center',
+            display: 'flex',
+            padding: '0 0 0.5rem',
+          }}
+        >
+          <div style={{ display: 'flex', padding: '0 0.5rem' }}>
+            <Icon color="white" path={mdiClockStart} size="20px" />
           </div>
           <TotalTransferred flowUpdatedId={flowUpdatedId} />
         </div>
       </div>
-    </>
+    </Styled.Flow>
   )
 }

@@ -12,7 +12,7 @@ export function TotalTransferred({ flowUpdatedId }) {
     {
       data: {
         flowUpdated: {
-          flow: { token = {} } = {},
+          flow: { token: { symbol = '' } = {} } = {},
           flowRate = 0,
           transaction: { timestamp } = {},
         } = {},
@@ -34,5 +34,5 @@ export function TotalTransferred({ flowUpdatedId }) {
     flowRate && timestamp ? 1000 / 60 : null,
   )
 
-  return `${totalTransferred.toFixed(10)} ${token.symbol}`
+  return `${totalTransferred.toFixed(6)} ${symbol}`
 }
