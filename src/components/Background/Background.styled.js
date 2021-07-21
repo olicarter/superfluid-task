@@ -2,25 +2,21 @@ import styled, { css, keyframes } from 'styled-components'
 import { motion } from 'framer-motion'
 
 const animation = keyframes({
-  from: {
+  '0%': {
     filter: 'hue-rotate(0deg)',
   },
-  to: {
-    filter: 'hue-rotate(360deg)',
+  '50%': {
+    filter: 'hue-rotate(160deg)',
+  },
+  '100%': {
+    filter: 'hue-rotate(0deg)',
   },
 })
 
-function randomInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
-
-const randomHue = randomInteger(0, 360)
-
-export const Background = styled.div(
+export const Background = styled(motion.div)(
   () => ({
-    background: `linear-gradient(150deg, hsl(${randomHue}, 80%, 25%), hsl(${
-      randomHue + 90
-    }, 60%, 60%))`,
+    background:
+      'linear-gradient(150deg, hsl(180, 80%, 25%), hsl(220, 60%, 60%))',
     bottom: 0,
     left: 0,
     position: 'absolute',
@@ -33,7 +29,7 @@ export const Background = styled.div(
   `,
 )
 
-const randomPercentage = () => `${Math.random() * 100}%`
+const randomPercentage = () => `${Math.random() * 99}%`
 
 export const Star = styled(motion.div)(
   ({

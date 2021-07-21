@@ -25,13 +25,12 @@ export function Flow({ id }) {
 
   return (
     <Styled.Flow>
-      <Styled.Avatar src="https://source.unsplash.com/500x500/?avatar" />
+      {/* <Styled.Avatar src="https://source.unsplash.com/500x500/?avatar" /> */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-around',
-          marginLeft: '1rem',
         }}
       >
         <div
@@ -41,7 +40,7 @@ export function Flow({ id }) {
             padding: '0 0 0.5rem',
           }}
         >
-          <div style={{ display: 'flex', padding: '0 0.5rem' }}>
+          <div style={{ display: 'flex', paddingRight: '0.5rem' }}>
             <Icon color="white" path={mdiWalletOutline} size="20px" />
           </div>
           <Anchor href={`https://rinkeby.etherscan.io/address/${recipient.id}`}>
@@ -56,7 +55,7 @@ export function Flow({ id }) {
             padding: '0 0 0.5rem',
           }}
         >
-          <div style={{ display: 'flex', padding: '0 0.5rem' }}>
+          <div style={{ display: 'flex', paddingRight: '0.5rem' }}>
             <Icon color="white" path={mdiClockOut} size="20px" />
           </div>
           {(flowRate / Math.pow(10, 18)).toFixed(8)} {symbol}/s
@@ -69,7 +68,7 @@ export function Flow({ id }) {
             padding: '0 0 0.5rem',
           }}
         >
-          <div style={{ display: 'flex', padding: '0 0.5rem' }}>
+          <div style={{ display: 'flex', paddingRight: '0.5rem' }}>
             <Icon color="white" path={mdiClockStart} size="20px" />
           </div>
           <TotalTransferred flowUpdatedId={flowUpdatedId} />

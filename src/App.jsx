@@ -3,11 +3,9 @@ import { useLazyQuery, gql } from '@apollo/client'
 import SuperfluidSDK from '@superfluid-finance/js-sdk'
 import { Web3Provider } from '@ethersproject/providers'
 import styled, { createGlobalStyle } from 'styled-components'
-import { transparentize } from 'polished'
-import Icon from '@mdi/react'
-import { mdiAccountEdit } from '@mdi/js'
+import { motion } from 'framer-motion'
 
-import { Anchor, Flow } from './components'
+import { Anchor, Avatar, Button, Flow, Heading } from './components'
 
 const GlobalStyle = createGlobalStyle(
   ({
@@ -30,64 +28,6 @@ const Row = styled.div({
   marginTop: '2rem',
   width: '100%',
 })
-
-const Heading = styled.h3({
-  color: 'white',
-  display: 'flex',
-  fontSize: '0.9rem',
-  fontWeight: 600,
-  letterSpacing: 1.2,
-  lineHeight: 1,
-  margin: '0 0 0.5rem',
-  padding: '0.5rem calc(0.5rem + 2px)',
-  position: 'relative',
-  textTransform: 'uppercase',
-  ':before': {
-    borderLeft: '3px solid white',
-    borderTop: '3px solid white',
-    content: '""',
-    height: '0.75rem',
-    left: 0,
-    position: 'absolute',
-    top: 0,
-    width: '0.75rem',
-  },
-})
-
-const Avatar = styled.div({
-  alignItems: 'center',
-  border: '4px solid white',
-  borderRadius: '100px',
-  color: 'white',
-  cursor: 'pointer',
-  display: 'flex',
-  height: '200px',
-  justifyContent: 'center',
-  width: '200px',
-  ':hover': {
-    background: 'white',
-    color: 'black',
-  },
-})
-
-const Button = styled.button(() => ({
-  appearance: 'none',
-  // background: transparentize(0.2, 'white'),
-  background: 'none',
-  border: '4px solid white',
-  borderRadius: '1000px',
-  color: 'white',
-  cursor: 'pointer',
-  fontSize: '1.3rem',
-  fontWeight: 600,
-  outline: 'none',
-  padding: '1rem 2rem',
-  transitionDuration: '100ms',
-  ':hover': {
-    background: 'white',
-    color: 'black',
-  },
-}))
 
 const QUERY = gql`
   query ($id: ID!) {
@@ -158,44 +98,48 @@ export function App() {
           width: '100%',
         }}
       >
-        <div
-          style={{
-            alignItems: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-            maxWidth: '480px',
-            overflow: 'hidden',
-            padding: '1rem',
-            width: '100%',
-          }}
-        >
-          {address ? (
-            <>
-              <Avatar src="https://source.unsplash.com/500x500/?portrait">
-                <Icon color="currentColor" path={mdiAccountEdit} size="80px" />
-              </Avatar>
-              <Row>
-                <Heading>Wallet Address</Heading>
-                <Anchor
-                  href={`https://rinkeby.etherscan.io/address/${address}`}
-                >
-                  {address}
-                </Anchor>
-              </Row>
-
-              <Row>
-                <Heading>Flows</Heading>
-                {flowsOwned.map(({ id }) => (
-                  <Flow id={id} />
-                ))}
-              </Row>
-            </>
-          ) : (
+        {address ? (
+          <motion.div
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            style={{
+              alignItems: 'center',
+              backdropFilter: 'blur(6px)',
+              backgroundColor: 'hsla(0, 0%, 0%, 0.15)',
+              borderRadius: '1rem',
+              boxShadow: '0 0 2rem 1rem hsla(0, 0%, 0%, 0.05)',
+              display: 'flex',
+              flexDirection: 'column',
+              maxWidth: '480px',
+              overflow: 'hidden',
+              padding: '2rem',
+              width: '100%',
+            }}
+          >
+            <Avatar />
             <Row>
-              <Button onClick={connect}>Continue with MetaMask</Button>
+              <Heading>Wallet Address</Heading>
+              <Anchor href={`https://rinkeby.etherscan.io/address/${address}`}>
+                {address}
+              </Anchor>
             </Row>
-          )}
-        </div>
+
+            <Row>
+              <Heading>Flows</Heading>
+              {flowsOwned.map(({ id }) => (
+                <Flow id={id} />
+              ))}
+            </Row>
+          </motion.div>
+        ) : (
+          <motion.div
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            transition={{ delay: 0, duration: 2 }}
+          >
+            <Button onClick={connect}>Continue with MetaMask</Button>
+          </motion.div>
+        )}
       </div>
     </>
   )
