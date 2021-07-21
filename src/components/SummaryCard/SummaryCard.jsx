@@ -1,12 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import SuperfluidSDK from '@superfluid-finance/js-sdk'
 import { Web3Provider } from '@ethersproject/providers'
-import { motion } from 'framer-motion'
 
 import { Anchor } from '../Anchor'
 import { Avatar } from '../Avatar'
-import { Button } from '../Button'
 import { Flow } from '../Flow'
 import { Heading } from '../Heading'
 
@@ -21,8 +19,8 @@ export function SummaryCard() {
     { variables: { id: address } },
   )
 
-  async function connect() {
-    try {
+  useEffect(() => {
+    ;(async () => {
       const sf = new SuperfluidSDK.Framework({
         ethers: new Web3Provider(window.ethereum),
       })
@@ -42,17 +40,10 @@ export function SummaryCard() {
       })
 
       setAddress(me.address)
-    } catch (error) {
-      if (error.code === 4001) {
-        // EIP-1193 userRejectedRequest error
-        console.log('Please connect to MetaMask.')
-      } else {
-        console.error(error)
-      }
-    }
-  }
+    })()
+  }, [])
 
-  return address ? (
+  return (
     <Styled.Card animate={{ opacity: 1 }} initial={{ opacity: 0 }}>
       <Avatar />
 
@@ -72,13 +63,5 @@ export function SummaryCard() {
         ))}
       </Styled.Row>
     </Styled.Card>
-  ) : (
-    <motion.div
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      transition={{ duration: 2 }}
-    >
-      <Button onClick={connect}>Continue with MetaMask</Button>
-    </motion.div>
   )
 }

@@ -1,7 +1,5 @@
 export * from './Anchor'
 export * from './Avatar'
 export * from './Background'
-export * from './Button'
 export * from './Flow'
 export * from './Heading'
-export * from './SummaryCard'
