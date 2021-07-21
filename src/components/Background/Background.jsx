@@ -10,6 +10,7 @@ export function Background() {
       />
       {[...Array(200).keys()].map((i, index) => (
         <Styled.Star
+          key={i}
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
           transition={{

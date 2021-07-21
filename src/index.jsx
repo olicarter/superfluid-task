@@ -4,7 +4,6 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { ThemeProvider } from 'styled-components'
 
 import { App } from './App'
-import { Background } from './components'
 import reportWebVitals from './reportWebVitals'
 
 const client = new ApolloClient({
@@ -20,7 +19,6 @@ ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
-        <Background />
         <App />
       </ThemeProvider>
     </ApolloProvider>
