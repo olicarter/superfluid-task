@@ -1,6 +1,10 @@
-import { Background, SummaryCard } from './components'
+import { lazy, Suspense } from 'react'
+
+import { Background } from './components'
 
 import * as Styled from './App.styled'
+
+const SummaryCard = lazy(() => import('./components/SummaryCard'))
 
 export function App() {
   return (
@@ -10,7 +14,9 @@ export function App() {
       <Background />
 
       <Styled.Centered>
-        <SummaryCard />
+        <Suspense fallback={<div>loading...</div>}>
+          <SummaryCard />
+        </Suspense>
       </Styled.Centered>
     </>
   )
