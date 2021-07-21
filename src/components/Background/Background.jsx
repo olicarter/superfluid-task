@@ -6,7 +6,7 @@ export function Background() {
       <Styled.Background
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
-        transition={{ delay: 0, duration: 8 }}
+        transition={{ delay: 1, duration: 5 }}
       />
       {[...Array(200).keys()].map((i, index) => (
         <Styled.Star

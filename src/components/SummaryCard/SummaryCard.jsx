@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import SuperfluidSDK from '@superfluid-finance/js-sdk'
 import { Web3Provider } from '@ethersproject/providers'
@@ -27,16 +27,20 @@ export function SummaryCard() {
         ethers: new Web3Provider(window.ethereum),
       })
 
-      await sf.initialize()
+      // This throws the following error for new domain connections so have commented out for now
+      // Error: unknown account #0 (operation="getAddress", code=UNSUPPORTED_OPERATION, version=providers/5.4.1)
+      // await sf.initialize()
 
       const accounts = await window.ethereum.request({
         method: 'eth_requestAccounts',
       })
+
       const me = sf.user({
         address: accounts[0],
         // Rinkeby fDAIx address https://docs.superfluid.finance/superfluid/networks/networks
         token: '0x745861AeD1EEe363b4AaA5F1994Be40b1e05Ff90',
       })
+
       setAddress(me.address)
     } catch (error) {
       if (error.code === 4001) {
@@ -72,7 +76,7 @@ export function SummaryCard() {
     <motion.div
       animate={{ opacity: 1 }}
       initial={{ opacity: 0 }}
-      transition={{ delay: 0, duration: 2 }}
+      transition={{ duration: 2 }}
     >
       <Button onClick={connect}>Continue with MetaMask</Button>
     </motion.div>
