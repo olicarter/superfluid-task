@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import SuperfluidSDK from '@superfluid-finance/js-sdk'
 import { Web3Provider } from '@ethersproject/providers'
