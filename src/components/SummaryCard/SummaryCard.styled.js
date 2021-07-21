@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 export const Card = styled(motion.div)({
   alignItems: 'center',
-  backdropFilter: 'blur(6px)',
+  backdropFilter: 'blur(20px)',
   backgroundColor: 'hsla(0, 0%, 0%, 0.15)',
   borderRadius: '1rem',
   boxShadow: '0 0 2rem 1rem hsla(0, 0%, 0%, 0.05)',

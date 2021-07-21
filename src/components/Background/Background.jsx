@@ -6,9 +6,9 @@ export function Background() {
       <Styled.Background
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
-        transition={{ duration: 4, ease: 'linear' }}
+        transition={{ duration: 2, ease: 'easeIn' }}
       />
-      {[...Array(200).keys()].map((i, index) => (
+      {[...Array(10).keys()].map((i, index) => (
         <Styled.Star
           key={i}
           animate={{ opacity: 1 }}
@@ -16,8 +16,8 @@ export function Background() {
           transition={{
             repeat: Infinity,
             repeatType: 'mirror',
-            delay: (6 / 200) * index,
-            duration: 2,
+            delay: (4 / 10) * index,
+            duration: 3,
           }}
         />
       ))}

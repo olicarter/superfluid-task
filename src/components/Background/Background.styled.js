@@ -43,7 +43,7 @@ export const Star = styled(motion.div)(
     left: randomPercentage(),
     position: 'absolute',
     top: randomPercentage(),
-    transform: `scale(${Math.random() * 4})`,
+    transform: `scale(${Math.random() * 100})`,
     width: '1px',
   }),
 )

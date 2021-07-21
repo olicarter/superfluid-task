@@ -43,7 +43,7 @@ export function App() {
               <motion.div
                 animate={{ opacity: 1 }}
                 initial={{ opacity: 0 }}
-                transition={{ duration: 2 }}
+                transition={{ delay: 2, duration: 1 }}
               >
                 <Button onClick={connect}>Continue with MetaMask</Button>
               </motion.div>
