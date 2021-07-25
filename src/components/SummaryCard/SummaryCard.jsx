@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react'
 import { useQuery } from '@apollo/client'
 import SuperfluidSDK from '@superfluid-finance/js-sdk'
 import { Web3Provider } from '@ethersproject/providers'
+import { mdiWalletOutline } from '@mdi/js'
 
-import { Anchor } from '../Anchor'
 import { Avatar } from '../Avatar'
 import { Flow } from '../Flow'
 import { Heading } from '../Heading'
+import { IconRow } from '../IconRow'
 
 import { ACCOUNT_QUERY } from './SummaryCard.gql'
 import * as Styled from './SummaryCard.styled'
@@ -48,11 +49,13 @@ export function SummaryCard() {
       <Avatar />
 
       <Styled.Row>
-        <Heading>Wallet Address</Heading>
+        <Heading>My Info</Heading>
 
-        <Anchor href={`https://rinkeby.etherscan.io/address/${address}`}>
-          {address}
-        </Anchor>
+        <IconRow
+          href={`https://rinkeby.etherscan.io/address/${address}`}
+          icon={mdiWalletOutline}
+          text={address}
+        />
       </Styled.Row>
 
       <Styled.Row>

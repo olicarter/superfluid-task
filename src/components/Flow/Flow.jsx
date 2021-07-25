@@ -1,8 +1,7 @@
 import { useQuery } from '@apollo/client'
-import Icon from '@mdi/react'
 import { mdiWalletOutline, mdiClockStart, mdiClockOut } from '@mdi/js'
 
-import { Anchor } from '../Anchor'
+import { IconRow } from '../IconRow'
 import { TotalTransferred } from './components'
 
 import { GET_FLOW_QUERY } from './Flow.gql'
@@ -25,54 +24,22 @@ export function Flow({ id }) {
 
   return (
     <Styled.Flow>
-      {/* <Styled.Avatar src="https://source.unsplash.com/500x500/?avatar" /> */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-around',
-        }}
-      >
-        <div
-          style={{
-            alignItems: 'center',
-            display: 'flex',
-            padding: '0 0 0.5rem',
-          }}
-        >
-          <div style={{ display: 'flex', paddingRight: '0.5rem' }}>
-            <Icon color="white" path={mdiWalletOutline} size="20px" />
-          </div>
-          <Anchor href={`https://rinkeby.etherscan.io/address/${recipient.id}`}>
-            {recipient.id}
-          </Anchor>
-        </div>
+      <div>
+        <IconRow
+          href={`https://rinkeby.etherscan.io/address/${recipient.id}`}
+          icon={mdiWalletOutline}
+          text={recipient.id}
+        />
 
-        <div
-          style={{
-            alignItems: 'center',
-            display: 'flex',
-            padding: '0 0 0.5rem',
-          }}
-        >
-          <div style={{ display: 'flex', paddingRight: '0.5rem' }}>
-            <Icon color="white" path={mdiClockOut} size="20px" />
-          </div>
-          {(flowRate / Math.pow(10, 18)).toFixed(8)} {symbol}/s
-        </div>
+        <IconRow
+          icon={mdiClockOut}
+          text={`${(flowRate / Math.pow(10, 18)).toFixed(8)} ${symbol}/s`}
+        />
 
-        <div
-          style={{
-            alignItems: 'center',
-            display: 'flex',
-            padding: '0 0 0.5rem',
-          }}
-        >
-          <div style={{ display: 'flex', paddingRight: '0.5rem' }}>
-            <Icon color="white" path={mdiClockStart} size="20px" />
-          </div>
-          <TotalTransferred flowUpdatedId={flowUpdatedId} />
-        </div>
+        <IconRow
+          icon={mdiClockStart}
+          text={<TotalTransferred flowUpdatedId={flowUpdatedId} />}
+        />
       </div>
     </Styled.Flow>
   )
